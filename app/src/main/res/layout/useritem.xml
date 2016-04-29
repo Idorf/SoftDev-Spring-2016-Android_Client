@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cv"
+    android:weightSum="1">
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="match_parent"
+                          android:orientation="horizontal"
+                          android:layout_weight="0.39"
+                          android:weightSum="1">
+
+                <ImageView
+                android:layout_width="84dp"
+                android:layout_height="102dp"
+                android:id="@+id/person_photo"
+                tools:src="@drawable/troll_face"
+                android:scaleType="fitXY"
+
+
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="false"
+                android:padding="5dp"/>
+
+                <LinearLayout android:layout_width="match_parent"
+                              android:layout_height="match_parent"
+                              android:orientation="vertical">
+
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/person_age"
+                        android:layout_toRightOf="@+id/person_photo"
+                        android:layout_below="@+id/person_name"
+                        tools:text="23 years"
+                        android:padding="5dp"
+                        android:layout_gravity="right"
+                        />
+
+                    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/person_name"
+            android:layout_toRightOf="@+id/person_photo"
+            android:layout_alignParentTop="true"
+            android:textSize="30sp"
+            tools:text="Troll Guy"
+
+            android:padding="5dp"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+    </android.support.v7.widget.CardView>
