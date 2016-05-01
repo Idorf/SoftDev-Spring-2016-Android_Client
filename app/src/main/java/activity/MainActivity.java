@@ -88,9 +88,15 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 fragment = new EventsFragment();
                 title = getString(R.string.title_home);
                 break;
+
             case 1:
                 fragment = new UserFragment();
                 title = getString(R.string.title_friends);
+                break;
+
+            case 2:
+                fragment = new UserRegistrationFragment();
+                title = getString(R.string.title_register_user);
                 break;
 
             default:
