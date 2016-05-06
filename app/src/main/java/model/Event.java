@@ -1,4 +1,4 @@
-package activity;
+package model;
 
 /**
  * Created by Idorf on 17/04/2016.

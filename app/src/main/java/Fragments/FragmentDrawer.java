@@ -1,4 +1,4 @@
-package activity;
+package Fragments;
 import com.example.idorf.materialdesign2.R;
 
 /**

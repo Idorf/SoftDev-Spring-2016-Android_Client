@@ -1,4 +1,4 @@
-package activity;
+package adapter;
 
 /**
  * Created by Idorf on 17/04/2016.
@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.example.idorf.materialdesign2.R;
 
 import java.util.List;
+
+import model.Event;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
 

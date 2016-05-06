@@ -1,4 +1,4 @@
-package activity;
+package Fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -13,6 +13,9 @@ import com.example.idorf.materialdesign2.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import activity.Event;
+import activity.EventAdapter;
 
 
 public class EventsFragment extends Fragment {
