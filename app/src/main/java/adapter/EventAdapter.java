@@ -36,9 +36,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             eventPhotoId = (ImageView)itemView.findViewById(R.id.event_photo);
         }
     }
-    List<Event> events;
+   public List<Event> events;
 
-    EventAdapter(List<Event> events){
+    public EventAdapter(List<Event> events){
         this.events = events;
     }
 

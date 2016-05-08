@@ -53,7 +53,7 @@ public class UserRegistrationFragment extends Fragment {
                              Bundle savedInstanceState) {
         final Activity activity = getActivity();
 
-        View layout = inflater.inflate(R.layout.user_registration, container, false);
+        View layout = inflater.inflate(R.layout.fragment_user_registration, container, false);
 
         final TextInputLayout usernameWrapper = (TextInputLayout) layout.findViewById(R.id.usernameWrapper);
         final TextInputLayout emailWrapper = (TextInputLayout) layout.findViewById(R.id.emailWrapper);
@@ -95,10 +95,10 @@ public class UserRegistrationFragment extends Fragment {
         // TODO: login procedure; not within the scope of this tutorial.
 
 
-
+/*
         UrlClient client = ServiceGenerator.createService(UrlClient.class);
 
-        User user = new User(username, password, 0, email);
+      //  User user = new User(username, password, 0, email);
 
         Car car = new Car(9999,"Pink", 1000);
         Call<Car> call3 = client.createCar(car);
@@ -137,7 +137,7 @@ public class UserRegistrationFragment extends Fragment {
             public void onFailure(Call<User> call, Throwable t) {
                 Log.d("Error", t.getMessage());
             }
-        });
+        });*/
 
 
 

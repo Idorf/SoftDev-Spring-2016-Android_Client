@@ -4,13 +4,13 @@ package model;
  * Created by Idorf on 17/04/2016.
  */
 
-class Event {
-    String venue;
-    String eventDesc;
-    int eventPhotoId;
-    String eventDistance;
+public class Event {
+   public String venue;
+    public String eventDesc;
+    public int eventPhotoId;
+    public String eventDistance;
 
-    Event(String venue, String eventDesc, String eventDistance, int eventPhotoId ) {
+   public Event(String venue, String eventDesc, String eventDistance, int eventPhotoId ) {
         this.venue = venue;
         this.eventDesc = eventDesc;
         this.eventPhotoId = eventPhotoId;

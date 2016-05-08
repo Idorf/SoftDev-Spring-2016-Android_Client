@@ -13,6 +13,10 @@ import android.view.View;
 
 import com.example.idorf.materialdesign2.R;
 
+import Fragments.EventsFragment;
+import Fragments.FragmentDrawer;
+import Fragments.UserRegistrationFragment;
+
 public class MainActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
 
     private Toolbar mToolbar;

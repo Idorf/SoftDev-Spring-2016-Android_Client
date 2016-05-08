@@ -14,9 +14,8 @@ import com.example.idorf.materialdesign2.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import activity.Event;
-import activity.EventAdapter;
-
+import adapter.EventAdapter;
+import model.Event;
 
 public class EventsFragment extends Fragment {
 
