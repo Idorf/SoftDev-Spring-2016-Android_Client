@@ -136,20 +136,21 @@
 
                     <EditText
                         android:id="@+id/time"
+                        android:enabled="false"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Choose time of day"/>
 
                 </android.support.design.widget.TextInputLayout>
-<!--
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/timeButton"
+                    android:id="@+id/timeBtn"
                     android:src="@mipmap/ic_time"
                     android:scaleType="centerInside"
                     android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />-->
+                    android:layout_alignParentEnd="true" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -177,19 +178,19 @@
                         android:id="@+id/date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:enabled="false"
                         android:hint="Choose date"/>
 
                 </android.support.design.widget.TextInputLayout>
 
-            <!--    <ImageView
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="New Button"
-                    android:id="@+id/dateButton"
+                    android:id="@+id/calenderBtn"
                     android:src="@mipmap/ic_calender"
                     android:scaleType="centerInside"
                     android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />-->
+                    android:layout_alignParentEnd="true" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -216,27 +217,28 @@
                     android:id="@+id/locationpWrapper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+
                     android:layout_marginTop="4dp">
 
                     <EditText
                         android:id="@+id/location"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:enabled="false"
                         android:hint="Search for location"/>
 
                 </android.support.design.widget.TextInputLayout>
 
-<!--
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="New Button"
-                    android:id="@+id/button"
-                    android:src="@mipmap/ic_googleplace"&ndash;&gt;
+                    android:id="@+id/googleplaceBtn"
+                    android:src="@mipmap/ic_googleplace"
                     android:scaleType="centerInside"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
--->
+
 
             </RelativeLayout>
         </LinearLayout>
@@ -254,22 +256,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New Button"
-                    android:id="@+id/sendButton" />
+
             </RelativeLayout>
         </LinearLayout>
 
-<!--        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/sendButton"
-             android:src="@mipmap/ic_send"
+        <ImageView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="New Button"
+         android:id="@+id/sendButton"
+          android:src="@mipmap/ic_send"
 
-            android:layout_gravity="center_horizontal" />-->
+         android:layout_gravity="center_horizontal" />
+
+        <!--        <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New Button"
+                    android:id="@+id/sendButton"
+                     android:src="@mipmap/ic_send"
+
+                    android:layout_gravity="center_horizontal" />-->
 
     </LinearLayout>
 

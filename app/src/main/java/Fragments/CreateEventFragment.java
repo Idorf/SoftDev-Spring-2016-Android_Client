@@ -1,15 +1,27 @@
 package Fragments;
 
+import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+
+
+import android.support.v4.app.FragmentTransaction;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.idorf.materialdesign2.R;
@@ -17,17 +29,16 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import APIConsumer.ServiceGenerator;
 import APIConsumer.UrlClient;
-import model.Event;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+
 
 
 public class CreateEventFragment extends Fragment  implements GoogleApiClient.OnConnectionFailedListener,
@@ -37,18 +48,17 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
 
     private int PLACE_PICKER_REQUEST = 1;
 
-
-
     TextInputLayout titleWrapper;
-    TextInputLayout descriptionWrapper;
-    TextInputLayout datePlaceholderWrapper;
-    TextInputLayout locationplaceholderWrapper;
 
-    String title;
-    String description;
-    String date;
-    String location;
-    Event event;
+    TextInputLayout locationWrapper;
+    TextInputLayout dateWrapper;
+    TextInputLayout timeWrapper;
+    ImageView googleplaceBtn;
+    ImageView timeBtn;
+    ImageView calenderBtn;
+
+    EditText title;
+
 
     private static final String EMAIL_PATTERN = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
     private Pattern pattern = Pattern.compile(EMAIL_PATTERN);
@@ -65,6 +75,21 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+      //  locationWrapper = (TextInputLayout) getActivity().findViewById(R.id.locationpWrapper);
+      //  googleplaceBtn = (ImageView) getActivity().findViewById(R.id.googleplaceBtn);
+
+
+        mGoogleApiClient = new GoogleApiClient
+                .Builder(getActivity())
+                .enableAutoManage(getActivity(), 0, this)
+                .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
+
+
     }
 
     @Override
@@ -74,38 +99,42 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
         View layout = inflater.inflate(R.layout.fragment_create_event, container, false);
 
         titleWrapper = (TextInputLayout) layout.findViewById(R.id.titleWrapper);
-//          descriptionWrapper = (TextInputLayout) layout.findViewById(R.id.descriptionWrapper);
-//          datePlaceholderWrapper = (TextInputLayout) layout.findViewById(R.id.dateWrapper);
-//          locationplaceholderWrapper = (TextInputLayout) layout.findViewById(R.id.locationpWrapper);
+        googleplaceBtn = (ImageView) layout.findViewById(R.id.googleplaceBtn);
+        timeBtn = (ImageView) layout.findViewById(R.id.timeBtn);
+        calenderBtn = (ImageView) layout.findViewById(R.id.calenderBtn);
+        dateWrapper = (TextInputLayout) layout.findViewById(R.id.dateWrapper);
+        timeWrapper = (TextInputLayout) layout.findViewById(R.id.timeWrapper);
 
-        final Button btn = (Button) layout.findViewById(R.id.sendButton);
 
+        locationWrapper = (TextInputLayout) layout.findViewById(R.id.locationpWrapper);
 
-        btn.setOnClickListener(new View.OnClickListener() {
+       // titleWrapper.getEditText().setText("fggghgg");
+
+      //  final Button btn = (Button) layout.findViewById(R.id.API_Button);
+
+     //   final TextInputLayout btn = (TextInputLayout) layout.findViewById(R.id.locationpWrapper);
+
+        googleplaceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                //need refacktoring!!!
-
-                title = titleWrapper.getEditText().getText().toString();
-/*                description = descriptionWrapper.getEditText().getText().toString();
-                date = datePlaceholderWrapper.getEditText().getText().toString();
-                location = locationplaceholderWrapper.getEditText().getText().toString();*/
-
-
                 doLogin();
 
-                /*
-                if (validateLength(title)) {
-                    emailWrapper.setError("Not a valid email address!");
-                } else if (!validatePasswordLength(password)) {
-                    passwordWrapper.setError("Not a valid password!");
-                } else if (!validatePassword(password, confirmPassword)) {
-                    passwordWrapper.setError("Passwords don't match!");
-                } else {
-                    usernameWrapper.setErrorEnabled(false);
-                    passwordWrapper.setErrorEnabled(false);
-                }*/
+            }
+        });
+        timeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showTimePickerDialog(v);
+
+            }
+        });
+        calenderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showDatePickerDialog(v);
 
             }
         });
@@ -114,9 +143,9 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
     }
 
     public void doLogin() {
-        Toast.makeText(getActivity().getApplicationContext(), "OK! I'm performing login.", Toast.LENGTH_SHORT).show();
         // TODO: login procedure; not within the scope of this tutorial.
 
+        displayPlacePicker();
 
 
         UrlClient client = ServiceGenerator.createService(UrlClient.class);
@@ -150,7 +179,6 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
         });
 
 */
-
     }
 
     public boolean validateLength(String input) {
@@ -182,9 +210,13 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
     }
 
     private void displayPlacePicker() {
-        if (mGoogleApiClient == null || !mGoogleApiClient.isConnected())
-            return;
+        if (mGoogleApiClient == null || !mGoogleApiClient.isConnected()) {
 
+            Toast.makeText(getActivity().getApplicationContext(), "not connedted.", Toast.LENGTH_SHORT).show();
+
+
+            return;
+        }
         try {
 
             PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
@@ -205,14 +237,12 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == PLACE_PICKER_REQUEST && resultCode == getActivity().RESULT_OK) {
+        if (requestCode == PLACE_PICKER_REQUEST && resultCode == Activity.RESULT_OK) {
 
+           //locationWrapper.getEditText().setText(PlacePicker.getPlace(data, getActivity()).getAddress().toString());
+            locationWrapper.getEditText().setText(PlacePicker.getPlace(data, getActivity()).getAddress().toString());
 
-
-            titleWrapper.getEditText().setText(PlacePicker.getPlace(data, getActivity()).getName().toString());
-            locationplaceholderWrapper.getEditText().setText(PlacePicker.getPlace(data, getActivity()).getAddress().toString());
-
-            System.out.println("------------------------------------" + PlacePicker.getPlace(data, getActivity()).getLatLng().toString());
+            System.out.println("------------------------------------" + PlacePicker.getPlace(data, getActivity()).getAddress().toString());
 
         }
     }
@@ -231,4 +261,129 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
     public void onConnectionFailed(ConnectionResult connectionResult) {
 
     }
+
+    public void showTimePickerDialog(View v) {
+
+        DialogFragment newFragment = new TimePickerFragment();
+        newFragment.show(getChildFragmentManager(), "timePicker");
+
+    }
+
+    public  class TimePickerFragment extends DialogFragment
+            implements TimePickerDialog.OnTimeSetListener {
+
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the current time as the default values for the picker
+            final Calendar c = Calendar.getInstance();
+            int hour = c.get(Calendar.HOUR_OF_DAY);
+            int minute = c.get(Calendar.MINUTE);
+
+            // Create a new instance of TimePickerDialog and return it
+            return new TimePickerDialog(getActivity(), this, hour, minute,
+                    DateFormat.is24HourFormat(getActivity()));
+        }
+
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+
+
+            timeWrapper.getEditText().setText(hourOfDay+":" + minute);
+
+            System.out.println( "---------------------------------------" +hourOfDay +minute );
+
+
+            // Do something with the time chosen by the user
+        }
+    }
+
+
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getChildFragmentManager(), "datePicker");
+    }
+
+    public  class DatePickerFragment extends DialogFragment
+            implements DatePickerDialog.OnDateSetListener {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the current date as the default date in the picker
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            // Create a new instance of DatePickerDialog and return it
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+
+            dateWrapper.getEditText().setText(day+"/" + month +"/"+year);
+
+            System.out.println("---------------------------------------" + year +month + day);
+
+            // Do something with the date chosen by the user
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+/*
+
+
+
+    public void doLogin() {
+        Toast.makeText(getActivity().getApplicationContext(), "OK! I'm performing login.", Toast.LENGTH_SHORT).show();
+        // TODO: login procedure; not within the scope of this tutorial.
+
+
+
+        UrlClient client = ServiceGenerator.createService(UrlClient.class);
+*/
+
+/*
+
+        Call<Event> callCreateEvent = client.createUser(event);
+
+        callCreateEvent.enqueue(new Callback<Event>() {
+            @Override
+            public void onResponse(Call<Event> call, Response<Event> response) {
+
+                System.out.println("onResponse");
+
+                if (response.isSuccessful()) {
+                    System.out.println("isSuccessful");
+
+                    //   for (Car contributor : response.body()) {
+                //    System.out.println("Username: " + response.body().getTitle() + "Email: -" + response.body().getDescription() + "Email: -" + response.body().getLocation());
+                    //}
+                } else {
+                    // error response, no access to resource?
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Event> call, Throwable t) {
+                Log.d("Error", t.getMessage());
+            }
+        });
+
+*/
