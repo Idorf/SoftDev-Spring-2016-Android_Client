@@ -13,6 +13,7 @@ import android.view.View;
 
 import com.example.idorf.materialdesign2.R;
 
+import Fragments.CreateEventFragment;
 import Fragments.EventsFragment;
 import Fragments.FragmentDrawer;
 import Fragments.UserRegistrationFragment;
@@ -103,6 +104,10 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 title = getString(R.string.title_register_user);
                 break;
 
+            case 3:
+                fragment = new CreateEventFragment();
+                title = getString(R.string.title_create_event);
+                break;
             default:
 
         }
