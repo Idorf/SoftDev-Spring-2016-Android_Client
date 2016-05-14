@@ -30,6 +30,7 @@ public class UserRegistrationFragment extends Fragment {
     String username;
     String password;
     String email;
+    User user;
 
     private static final String EMAIL_PATTERN = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
     private Pattern pattern = Pattern.compile(EMAIL_PATTERN);
@@ -82,6 +83,7 @@ public class UserRegistrationFragment extends Fragment {
                 } else {
                     usernameWrapper.setErrorEnabled(false);
                     passwordWrapper.setErrorEnabled(false);
+
                     doLogin();
                 }
             }
@@ -94,15 +96,84 @@ public class UserRegistrationFragment extends Fragment {
         Toast.makeText(getActivity().getApplicationContext(), "OK! I'm performing login.", Toast.LENGTH_SHORT).show();
         // TODO: login procedure; not within the scope of this tutorial.
 
-
-/*
         UrlClient client = ServiceGenerator.createService(UrlClient.class);
 
-      //  User user = new User(username, password, 0, email);
-
-        Car car = new Car(9999,"Pink", 1000);
-        Call<Car> call3 = client.createCar(car);
+        user = new User(username, email, 1, password);
+      //  user = new User("test","fdlfk@gkgkg.dk",1, "1234567");
         Call<User> callCreateUser = client.createUser(user);
+
+
+        callCreateUser.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+
+                System.out.println("onResponse");
+
+                if (response.isSuccessful()) {
+                    System.out.println("isSuccessful");
+
+                    //   for (Car contributor : response.body()) {
+                    System.out.println("Username: " + response.body().getUserName() + "Email: -" + response.body().getEmail() + "Email: -" + response.body().getPassword());
+                    //}
+                } else {
+                    // error response, no access to resource?
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.d("Error", t.getMessage());
+            }
+        });
+
+    }
+
+    public boolean validatePasswordLength(String password) {
+        return password.length() > 5;
+    }
+
+    public boolean validatePassword(String password, String confirmPassword) {
+        return (password.equals(confirmPassword));
+    }
+
+    public boolean validateEmail(String email) {
+        matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+
+
+    public void doLogin() {
+        Toast.makeText(getActivity().getApplicationContext(), "OK! I'm performing login.", Toast.LENGTH_SHORT).show();
+        // TODO: login procedure; not within the scope of this tutorial.
+
+        UrlClient client = ServiceGenerator.createService(UrlClient.class);
+
+        //  User user = new User(username, password, 0, email);
+
+
+
+        Call<User> callCreateUser = client.createUser(user);
+
+        // Call<User> callCreateUser = client.createUser(user);
 
         Call<Car> call =
                 client.contributors(1);
@@ -137,47 +208,11 @@ public class UserRegistrationFragment extends Fragment {
             public void onFailure(Call<User> call, Throwable t) {
                 Log.d("Error", t.getMessage());
             }
-        });*/
+        });*//*
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    }
-
-    public boolean validatePasswordLength(String password) {
-        return password.length() > 5;
-    }
-
-    public boolean validatePassword(String password, String confirmPassword) {
-        return (password.equals(confirmPassword));
-    }
-
-    public boolean validateEmail(String email) {
-        matcher = pattern.matcher(email);
-        return matcher.matches();
-    }
-
-
-}
+*/

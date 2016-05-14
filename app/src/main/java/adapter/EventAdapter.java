@@ -15,7 +15,7 @@ import com.example.idorf.materialdesign2.R;
 
 import java.util.List;
 
-import model.Event;
+import model.Event3;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
 
@@ -36,10 +36,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             eventPhotoId = (ImageView)itemView.findViewById(R.id.event_photo);
         }
     }
-   public List<Event> events;
+   public List<Event3> event3s;
 
-    public EventAdapter(List<Event> events){
-        this.events = events;
+    public EventAdapter(List<Event3> event3s){
+        this.event3s = event3s;
     }
 
     @Override
@@ -57,15 +57,15 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     @Override
     public void onBindViewHolder(EventViewHolder eventViewHolder, int i) {
 
-        eventViewHolder.venue.setText(events.get(i).venue);
-        eventViewHolder.eventDesc.setText(events.get(i).eventDesc);
-        eventViewHolder.eventDistance.setText(events.get(i).eventDistance);
+        eventViewHolder.venue.setText(event3s.get(i).venue);
+        eventViewHolder.eventDesc.setText(event3s.get(i).eventDesc);
+        eventViewHolder.eventDistance.setText(event3s.get(i).eventDistance);
 
-        eventViewHolder.eventPhotoId.setImageResource(events.get(i).eventPhotoId);
+        eventViewHolder.eventPhotoId.setImageResource(event3s.get(i).eventPhotoId);
     }
 
     @Override
     public int getItemCount() {
-        return events.size();
+        return event3s.size();
     }
 }

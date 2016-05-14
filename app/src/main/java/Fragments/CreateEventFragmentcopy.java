@@ -14,7 +14,7 @@ import com.example.idorf.materialdesign2.R;
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
  * {@link CreateEventFragmentcopy.OnFragmentInteractionListener} interface
- * to handle interaction events.
+ * to handle interaction event3s.
  * Use the {@link CreateEventFragmentcopy#newInstance} factory method to
  * create an instance of this fragment.
  */
@@ -68,7 +68,7 @@ public class CreateEventFragmentcopy extends Fragment {
         return inflater.inflate(R.layout.fragment_create_event, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+    // TODO: Rename method, update argument and hook method into UI event3
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);

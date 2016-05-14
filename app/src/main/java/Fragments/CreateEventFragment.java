@@ -11,15 +11,12 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 
 
-import android.support.v4.app.FragmentTransaction;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -38,7 +35,11 @@ import java.util.regex.Pattern;
 
 import APIConsumer.ServiceGenerator;
 import APIConsumer.UrlClient;
-
+import model.Event;
+import model.Event3;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class CreateEventFragment extends Fragment  implements GoogleApiClient.OnConnectionFailedListener,
@@ -48,16 +49,30 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
 
     private int PLACE_PICKER_REQUEST = 1;
 
-    TextInputLayout titleWrapper;
+    Event event;
 
+    //textWrappers
+    TextInputLayout titleWrapper;
     TextInputLayout locationWrapper;
+    TextInputLayout descriptionWrapper;
     TextInputLayout dateWrapper;
     TextInputLayout timeWrapper;
+
+
+    //Buttons
     ImageView googleplaceBtn;
     ImageView timeBtn;
     ImageView calenderBtn;
+    ImageView sendButton;
 
-    EditText title;
+
+
+    //Text
+    String title;
+    String description;
+    Integer date;
+    String time;
+    String location;
 
 
     private static final String EMAIL_PATTERN = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
@@ -75,11 +90,6 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-      //  locationWrapper = (TextInputLayout) getActivity().findViewById(R.id.locationpWrapper);
-      //  googleplaceBtn = (ImageView) getActivity().findViewById(R.id.googleplaceBtn);
-
-
         mGoogleApiClient = new GoogleApiClient
                 .Builder(getActivity())
                 .enableAutoManage(getActivity(), 0, this)
@@ -88,7 +98,6 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
-
 
     }
 
@@ -99,26 +108,24 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
         View layout = inflater.inflate(R.layout.fragment_create_event, container, false);
 
         titleWrapper = (TextInputLayout) layout.findViewById(R.id.titleWrapper);
+        descriptionWrapper = (TextInputLayout) layout.findViewById(R.id.descriptionWrapper);
+
         googleplaceBtn = (ImageView) layout.findViewById(R.id.googleplaceBtn);
         timeBtn = (ImageView) layout.findViewById(R.id.timeBtn);
         calenderBtn = (ImageView) layout.findViewById(R.id.calenderBtn);
         dateWrapper = (TextInputLayout) layout.findViewById(R.id.dateWrapper);
         timeWrapper = (TextInputLayout) layout.findViewById(R.id.timeWrapper);
-
+        sendButton = (ImageView) layout.findViewById(R.id.sendButton);
 
         locationWrapper = (TextInputLayout) layout.findViewById(R.id.locationpWrapper);
 
-       // titleWrapper.getEditText().setText("fggghgg");
 
-      //  final Button btn = (Button) layout.findViewById(R.id.API_Button);
-
-     //   final TextInputLayout btn = (TextInputLayout) layout.findViewById(R.id.locationpWrapper);
 
         googleplaceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                doLogin();
+                displayPlacePicker();
 
             }
         });
@@ -139,20 +146,37 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
             }
         });
 
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                doLogin();
+
+            }
+        });
+
+
+
+
+
         return layout;
     }
 
     public void doLogin() {
         // TODO: login procedure; not within the scope of this tutorial.
 
-        displayPlacePicker();
 
+        title = titleWrapper.getEditText().getText().toString();
+        description = descriptionWrapper.getEditText().getText().toString();
+        location = locationWrapper.getEditText().getText().toString();
+        date = -3599000;
+        event = new Event(1, title,description, date, location, 1,1);
+      //  Integer userID, String title, String description, Integer date, String location, Integer catagoryID, Integer picturePath) {
 
         UrlClient client = ServiceGenerator.createService(UrlClient.class);
 
-/*
-
-        Call<Event> callCreateEvent = client.createUser(event);
+        Call<Event> callCreateEvent = client.createEvent(event);
 
         callCreateEvent.enqueue(new Callback<Event>() {
             @Override
@@ -164,7 +188,7 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
                     System.out.println("isSuccessful");
 
                     //   for (Car contributor : response.body()) {
-                //    System.out.println("Username: " + response.body().getTitle() + "Email: -" + response.body().getDescription() + "Email: -" + response.body().getLocation());
+                  System.out.println("Username: " + response.body().getTitle() + "Email: -" + response.body().getDescription() + "Email: -" + response.body().getLocation());
                     //}
                 } else {
                     // error response, no access to resource?
@@ -178,7 +202,7 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
             }
         });
 
-*/
+
     }
 
     public boolean validateLength(String input) {
@@ -360,11 +384,11 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
 
 /*
 
-        Call<Event> callCreateEvent = client.createUser(event);
+        Call<Event3> callCreateEvent = client.createUser(event3);
 
-        callCreateEvent.enqueue(new Callback<Event>() {
+        callCreateEvent.enqueue(new Callback<Event3>() {
             @Override
-            public void onResponse(Call<Event> call, Response<Event> response) {
+            public void onResponse(Call<Event3> call, Response<Event3> response) {
 
                 System.out.println("onResponse");
 
@@ -381,9 +405,108 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
             }
 
             @Override
-            public void onFailure(Call<Event> call, Throwable t) {
+            public void onFailure(Call<Event3> call, Throwable t) {
                 Log.d("Error", t.getMessage());
             }
         });
 
 */
+
+
+
+
+/*
+
+
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View layout = inflater.inflate(R.layout.fragment_create_event, container, false);
+
+        titleWrapper = (TextInputLayout) layout.findViewById(R.id.titleWrapper);
+        googleplaceBtn = (ImageView) layout.findViewById(R.id.googleplaceBtn);
+        timeBtn = (ImageView) layout.findViewById(R.id.timeBtn);
+        calenderBtn = (ImageView) layout.findViewById(R.id.calenderBtn);
+        dateWrapper = (TextInputLayout) layout.findViewById(R.id.dateWrapper);
+        timeWrapper = (TextInputLayout) layout.findViewById(R.id.timeWrapper);
+
+
+        locationWrapper = (TextInputLayout) layout.findViewById(R.id.locationpWrapper);
+
+        // titleWrapper.getEditText().setText("fggghgg");
+
+        //  final Button btn = (Button) layout.findViewById(R.id.API_Button);
+
+        //   final TextInputLayout btn = (TextInputLayout) layout.findViewById(R.id.locationpWrapper);
+
+        googleplaceBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                doLogin();
+
+            }
+        });
+        timeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showTimePickerDialog(v);
+
+            }
+        });
+        calenderBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showDatePickerDialog(v);
+
+            }
+        });
+
+        return layout;
+    }
+
+    public void doLogin() {
+        // TODO: login procedure; not within the scope of this tutorial.
+
+        displayPlacePicker();
+
+
+        UrlClient client = ServiceGenerator.createService(UrlClient.class);
+*/
+
+/*
+
+        Call<Event3> callCreateEvent = client.createUser(event3);
+
+        callCreateEvent.enqueue(new Callback<Event3>() {
+            @Override
+            public void onResponse(Call<Event3> call, Response<Event3> response) {
+
+                System.out.println("onResponse");
+
+                if (response.isSuccessful()) {
+                    System.out.println("isSuccessful");
+
+                    //   for (Car contributor : response.body()) {
+                //    System.out.println("Username: " + response.body().getTitle() + "Email: -" + response.body().getDescription() + "Email: -" + response.body().getLocation());
+                    //}
+                } else {
+                    // error response, no access to resource?
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Event3> call, Throwable t) {
+                Log.d("Error", t.getMessage());
+            }
+        });
+
+*/
+
+
+
+

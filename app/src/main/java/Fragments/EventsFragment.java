@@ -15,11 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import adapter.EventAdapter;
-import model.Event;
+import model.Event3;
 
 public class EventsFragment extends Fragment {
 
-    private List<Event> events;
+    private List<Event3> event3s;
     private RecyclerView rv;
 
     public EventsFragment() {
@@ -70,10 +70,10 @@ public class EventsFragment extends Fragment {
     }
 
     private void initializeData(){
-        events = new ArrayList<>();
-        events.add(new Event("KoncertHuset", "3 km", "Beethoven & Brahms", R.drawable.koncerthuset));
-        events.add(new Event("Østre gasværk", "10 km", "Skammerens Datter", R.drawable.oestre_gasvaerk));
-        events.add(new Event("Palads", "5 km", "CAPTAIN AMERICA: CIVIL WAR", R.drawable.palads));
+        event3s = new ArrayList<>();
+        event3s.add(new Event3("KoncertHuset", "3 km", "Beethoven & Brahms", R.drawable.koncerthuset));
+        event3s.add(new Event3("Østre gasværk", "10 km", "Skammerens Datter", R.drawable.oestre_gasvaerk));
+        event3s.add(new Event3("Palads", "5 km", "CAPTAIN AMERICA: CIVIL WAR", R.drawable.palads));
     }
 
 /*    private void initializeAdapter(){
@@ -81,7 +81,7 @@ public class EventsFragment extends Fragment {
         rv.setAdapter(adapter);
     }*/
     private void initializeAdapter(){
-        EventAdapter adapter = new EventAdapter(events);
+        EventAdapter adapter = new EventAdapter(event3s);
         rv.setAdapter(adapter);
     }
 }

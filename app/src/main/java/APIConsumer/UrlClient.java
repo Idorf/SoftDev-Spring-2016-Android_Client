@@ -1,9 +1,10 @@
 package APIConsumer;
 
 
-import okhttp3.ResponseBody;
+import model.Event;
+import model.Event3;
+import model.User;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -23,5 +24,12 @@ public interface UrlClient {
 
     @POST("createcar/")
     Call<Car> createCar(@Body Car car);
+
+
+    @POST("create_User/")
+    Call<User> createUser(@Body User user);
+
+    @POST("create_event/")
+    Call<Event> createEvent(@Body Event event);
 
 }
