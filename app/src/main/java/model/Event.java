@@ -8,12 +8,12 @@ public class Event {
     Integer userID;
     String title;
     String description;
-    Integer date;
+    Long date;
     String location;
     Integer catagoryID;
     Integer picturePath;
 
-    public Event(Integer userID, String title, String description, Integer date, String location, Integer catagoryID, Integer picturePath) {
+    public Event(Integer userID, String title, String description, Long date, String location, Integer catagoryID, Integer picturePath) {
         this.userID = userID;
         this.title = title;
         this.description = description;
@@ -47,11 +47,11 @@ public class Event {
         this.description = description;
     }
 
-    public Integer getDate() {
+    public Long getDate() {
         return date;
     }
 
-    public void setDate(Integer date) {
+    public void setDate(Long date) {
         this.date = date;
     }
 

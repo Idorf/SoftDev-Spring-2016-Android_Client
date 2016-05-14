@@ -29,7 +29,10 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -70,9 +73,10 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
     //Text
     String title;
     String description;
-    Integer date;
+    String date;
     String time;
     String location;
+    Long   dateTimeMilliseconds;
 
 
     private static final String EMAIL_PATTERN = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
@@ -170,9 +174,27 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
         title = titleWrapper.getEditText().getText().toString();
         description = descriptionWrapper.getEditText().getText().toString();
         location = locationWrapper.getEditText().getText().toString();
-        date = -3599000;
-        event = new Event(1, title,description, date, location, 1,1);
-      //  Integer userID, String title, String description, Integer date, String location, Integer catagoryID, Integer picturePath) {
+       // date = -3599000;
+        date = dateWrapper.getEditText().getText().toString();
+        time = timeWrapper.getEditText().getText().toString();
+
+
+
+        String timeFormat = date + " " + time;
+
+      //  String timeFormat = "2009-07-20 05-33";
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+        try {
+            Date dt = df.parse(timeFormat);
+            dateTimeMilliseconds = dt.getTime();
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        event = new Event(1, title,description, dateTimeMilliseconds, location, 1,1);
+
 
         UrlClient client = ServiceGenerator.createService(UrlClient.class);
 
@@ -345,6 +367,7 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
 
+
             dateWrapper.getEditText().setText(day+"/" + month +"/"+year);
 
             System.out.println("---------------------------------------" + year +month + day);
@@ -504,6 +527,45 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
                 Log.d("Error", t.getMessage());
             }
         });
+
+
+
+
+
+
+
+
+
+
+
+
+        String timeFormat = date + " " + time;
+
+      //  String timeFormat = "2009-07-20 05-33";
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+      //  SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd hh-mm");
+
+
+        try {
+            Date dt = df.parse(timeFormat);
+            Long l = dt.getTime();
+            System.out.println(l);
+
+            Date date=new Date(l);
+            SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yyyy/HH:mm");
+            String dateText = df2.format(date);
+            System.out.println(dateText);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+
 
 */
 
