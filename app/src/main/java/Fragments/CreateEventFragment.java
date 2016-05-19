@@ -9,8 +9,9 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 
-
+import android.support.v4.app.FragmentTransaction;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -51,7 +52,7 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
     private GoogleApiClient mGoogleApiClient;
 
     private int PLACE_PICKER_REQUEST = 1;
-
+    View layout;
     Event event;
 
     //textWrappers
@@ -77,7 +78,7 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
     String time;
     String location;
     Long   dateTimeMilliseconds;
-
+    View test;
 
     private static final String EMAIL_PATTERN = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
     private Pattern pattern = Pattern.compile(EMAIL_PATTERN);
@@ -109,7 +110,7 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View layout = inflater.inflate(R.layout.fragment_create_event, container, false);
+        layout = inflater.inflate(R.layout.fragment_create_event, container, false);
 
         titleWrapper = (TextInputLayout) layout.findViewById(R.id.titleWrapper);
         descriptionWrapper = (TextInputLayout) layout.findViewById(R.id.descriptionWrapper);
@@ -145,7 +146,8 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
             @Override
             public void onClick(View v) {
 
-                showDatePickerDialog(v);
+                showEvent(v);
+              //  showDatePickerDialog(v);
 
             }
         });
@@ -159,10 +161,6 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
 
             }
         });
-
-
-
-
 
         return layout;
     }
@@ -312,6 +310,18 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
 
         DialogFragment newFragment = new TimePickerFragment();
         newFragment.show(getChildFragmentManager(), "timePicker");
+
+    }
+
+    public void showEvent(View v) {
+
+;
+        Fragment fragment = new UserRegistrationFragment();
+        FragmentManager fragmentManager = getChildFragmentManager();
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.create_event_body, fragment);
+        fragmentTransaction.commit();
 
     }
 

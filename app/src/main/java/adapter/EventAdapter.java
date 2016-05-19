@@ -13,32 +13,46 @@ import android.widget.TextView;
 
 import com.example.idorf.materialdesign2.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import model.Event;
 import model.Event3;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
 
+
     public static class EventViewHolder extends RecyclerView.ViewHolder {
 
         CardView eventCV;
-        TextView venue;
+        TextView title;
         TextView eventDesc;
-        TextView eventDistance;
-        ImageView eventPhotoId;
+        TextView eventDate;
+        TextView eventTime;
+        ImageView eventImage;
+
+        TextView eventLocation;
 
         EventViewHolder(View itemView) {
             super(itemView);
-            eventCV = (CardView)itemView.findViewById(R.id.cv);
-            venue = (TextView)itemView.findViewById(R.id.venue);
-            eventDesc = (TextView)itemView.findViewById(R.id.event_desc);
-            eventDistance = (TextView)itemView.findViewById(R.id.event_distance);
-            eventPhotoId = (ImageView)itemView.findViewById(R.id.event_photo);
+            eventCV = (CardView)itemView.findViewById(R.id.cv_event);
+            title = (TextView)itemView.findViewById(R.id.EventTitle);
+            eventDesc = (TextView)itemView.findViewById(R.id.EventDescription);
+            eventDate = (TextView)itemView.findViewById(R.id.EventDate);
+            eventTime = (TextView)itemView.findViewById(R.id.EventTime);
+            eventImage = (ImageView) itemView.findViewById(R.id.randomPicture);
+            eventLocation = (TextView)itemView.findViewById(R.id.EventLocation);
+
+
+
+
+
         }
     }
-   public List<Event3> event3s;
+   public List<Event> event3s;
 
-    public EventAdapter(List<Event3> event3s){
+    public EventAdapter(List<Event> event3s){
         this.event3s = event3s;
     }
 
@@ -57,11 +71,23 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     @Override
     public void onBindViewHolder(EventViewHolder eventViewHolder, int i) {
 
-        eventViewHolder.venue.setText(event3s.get(i).venue);
-        eventViewHolder.eventDesc.setText(event3s.get(i).eventDesc);
-        eventViewHolder.eventDistance.setText(event3s.get(i).eventDistance);
 
-        eventViewHolder.eventPhotoId.setImageResource(event3s.get(i).eventPhotoId);
+        eventViewHolder.title.setText(event3s.get(i).getTitle());
+      //  eventViewHolder.eventDesc.setText(event3s.get(i).getDescription());
+
+        Date date=new Date(event3s.get(i).getDate());
+
+        SimpleDateFormat year = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat month = new SimpleDateFormat("dd-MM");
+        SimpleDateFormat time = new SimpleDateFormat("HH:mm");
+        String dateText = year.format(date);
+        String timeText = time.format(date);
+        eventViewHolder.eventDate.setText(dateText +" \u2022 "+ timeText);
+       // eventViewHolder.eventTime.setText(timeText);
+      //  eventViewHolder.eventLocation.setText(event3s.get(i).getLocation());
+       eventViewHolder.eventImage.setBackgroundResource(event3s.get(i).getPictureTemp());
+
+
     }
 
     @Override

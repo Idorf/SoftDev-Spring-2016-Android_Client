@@ -1,27 +1,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/white">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@android:color/white">
 
 
-    <RelativeLayout
-        android:id="@+id/nav_header_container"
-        android:layout_width="match_parent"
-        android:layout_height="140dp"
-        android:layout_alignParentTop="true"
-        android:background="@color/colorPrimary">
-
-        <ImageView
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:src="@drawable/ic_profile"
-            android:scaleType="fitCenter"
-            android:layout_centerInParent="true" />
-
-    </RelativeLayout>
-
-
-    <android.support.v7.widget.RecyclerView
+    <!--   <android.support.v7.widget.RecyclerView
         android:id="@+id/drawerList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,36 +23,163 @@
         android:background="#f5f4f4"
         android:autoText="false"
         android:gravity="center_horizontal"/>
-
+-->
 
     <LinearLayout
-        android:layout_below="@id/line"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:layout_height="match_parent">
 
+        <RelativeLayout
+            android:id="@+id/nav_header_container"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/bluebackground">
+
+
+
+  <!--          <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@mipmap/ic_userlogo"
+                android:scaleType="fitCenter"
+                android:id="@+id/imageView3"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />-->
+
+            <TextView
+                android:id="@+id/textView3"
+                android:text="Add Account"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:textColor="#ffffff" />
+
+            <ImageView
+                tools:src="@mipmap/ic_addaccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView4"
+                android:src="@mipmap/ic_addaccount"
+                android:layout_alignParentBottom="true"
+                android:layout_alignTop="@+id/textView3"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:paddingBottom="10dp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    tools:src="@mipmap/ic_allevent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView2"
+                    android:src="@mipmap/ic_allevent"
+                    android:layout_alignBottom="@+id/textView2"
+                    android:layout_alignTop="@+id/textView2" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:text="Show Events"
+                    android:textStyle="italic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/imageView2"
+                    android:layout_toRightOf="@+id/imageView2" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView"
+                    tools:src="@mipmap/ic_event"
+                    android:src="@mipmap/ic_event"
+                    android:layout_alignBottom="@+id/textView"
+                    android:layout_alignTop="@+id/textView" />
+
+                <TextView
+                    android:id="@+id/textView"
+
+                    android:text="Create Event"
+                    android:textStyle="italic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/imageView"
+                    android:layout_toRightOf="@+id/imageView" />
+            </RelativeLayout>
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp">
+        <View
+            android:layout_width="wrap_content"
+            android:background="@drawable/gradient"
+            android:layout_height="1dp"/>
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+            android:id="@+id/text1"
+            android:textSize="10sp"
+
+            android:text="Captain America: Civil War"
+            android:textStyle="italic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:paddingLeft="10dp" />
         <TextView
-        android:id="@+id/text1"
-        android:textSize="10sp"
+            android:textSize="10sp"
 
-        android:text="Captain America: Civil War"
-        android:textStyle="italic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_marginTop="10dp"/>
-    <TextView
-        android:textSize="10sp"
-
-        android:id="@+id/text2"
-        android:text="Skammerens Datter"
-        android:textStyle="italic"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_marginTop="10dp"/>
+            android:id="@+id/text2"
+            android:text="Skammerens Datter"
+            android:textStyle="italic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="10dp" />
 
 
+        </LinearLayout>
     </LinearLayout>
 
 

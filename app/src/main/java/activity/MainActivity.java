@@ -13,6 +13,7 @@ import android.view.View;
 
 import com.example.idorf.materialdesign2.R;
 
+import APIConsumer.CallREST;
 import Fragments.CreateEventFragment;
 import Fragments.EventsFragment;
 import Fragments.FragmentDrawer;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         System.out.println("11111" + getApplicationContext().getApplicationInfo());
         Fragment fragment = null;
         String title = getString(R.string.app_name);
-
+        new CallREST();
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
