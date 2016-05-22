@@ -9,8 +9,6 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-
-
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,7 +37,6 @@ import java.util.regex.Pattern;
 import APIConsumer.ServiceGenerator;
 import APIConsumer.UrlClient;
 import model.Event;
-import model.Event3;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,28 +45,19 @@ import retrofit2.Response;
 public class CreateEventFragment extends Fragment  implements GoogleApiClient.OnConnectionFailedListener,
         GoogleApiClient.ConnectionCallbacks {
 
-    private GoogleApiClient mGoogleApiClient;
-
-    private int PLACE_PICKER_REQUEST = 1;
-
+    private static final String EMAIL_PATTERN = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
     Event event;
-
     //textWrappers
     TextInputLayout titleWrapper;
     TextInputLayout locationWrapper;
     TextInputLayout descriptionWrapper;
     TextInputLayout dateWrapper;
     TextInputLayout timeWrapper;
-
-
     //Buttons
     ImageView googleplaceBtn;
     ImageView timeBtn;
     ImageView calenderBtn;
     ImageView sendButton;
-
-
-
     //Text
     String title;
     String description;
@@ -77,9 +65,8 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
     String time;
     String location;
     Long   dateTimeMilliseconds;
-
-
-    private static final String EMAIL_PATTERN = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
+    private GoogleApiClient mGoogleApiClient;
+    private int PLACE_PICKER_REQUEST = 1;
     private Pattern pattern = Pattern.compile(EMAIL_PATTERN);
     private Matcher matcher;
 
@@ -258,35 +245,29 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
     private void displayPlacePicker() {
         if (mGoogleApiClient == null || !mGoogleApiClient.isConnected()) {
 
-            Toast.makeText(getActivity().getApplicationContext(), "not connedted.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity().getApplicationContext(), "not connected.", Toast.LENGTH_SHORT).show();
 
 
             return;
         }
         try {
-            Log.d("Placepicker test", "start");
             PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
 
             Intent intent = intentBuilder.build(getActivity());
-            Log.d("Placepicker test", "send intent");
             startActivityForResult(intent, PLACE_PICKER_REQUEST);
-            Log.d("Placepicker test", "after send");
 
 
         } catch (GooglePlayServicesRepairableException e) {
 
             e.printStackTrace();
-            Log.d("Placepicker test", "error1");
         } catch (GooglePlayServicesNotAvailableException e) {
 
             e.printStackTrace();
-            Log.d("Placepicker test", "error2");
         }
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_PICKER_REQUEST && resultCode == Activity.RESULT_OK) {
-            Log.d("Placepicker test", "recieved result");
            //locationWrapper.getEditText().setText(PlacePicker.getPlace(data, getActivity()).getAddress().toString());
             locationWrapper.getEditText().setText(PlacePicker.getPlace(data, getActivity()).getAddress().toString());
 
@@ -317,6 +298,11 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
 
     }
 
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getChildFragmentManager(), "datePicker");
+    }
+
     public  class TimePickerFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
 
@@ -344,12 +330,6 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
 
             // Do something with the time chosen by the user
         }
-    }
-
-
-    public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getChildFragmentManager(), "datePicker");
     }
 
     public  class DatePickerFragment extends DialogFragment
