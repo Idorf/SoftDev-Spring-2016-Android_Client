@@ -264,27 +264,29 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
             return;
         }
         try {
-
+            Log.d("Placepicker test", "start");
             PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
 
             Intent intent = intentBuilder.build(getActivity());
-
+            Log.d("Placepicker test", "send intent");
             startActivityForResult(intent, PLACE_PICKER_REQUEST);
+            Log.d("Placepicker test", "after send");
+
 
         } catch (GooglePlayServicesRepairableException e) {
 
             e.printStackTrace();
-
+            Log.d("Placepicker test", "error1");
         } catch (GooglePlayServicesNotAvailableException e) {
 
             e.printStackTrace();
-
+            Log.d("Placepicker test", "error2");
         }
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_PICKER_REQUEST && resultCode == Activity.RESULT_OK) {
-
+            Log.d("Placepicker test", "recieved result");
            //locationWrapper.getEditText().setText(PlacePicker.getPlace(data, getActivity()).getAddress().toString());
             locationWrapper.getEditText().setText(PlacePicker.getPlace(data, getActivity()).getAddress().toString());
 
