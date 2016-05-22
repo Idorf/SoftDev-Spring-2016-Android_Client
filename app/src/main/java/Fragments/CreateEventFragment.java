@@ -10,7 +10,6 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-
 import android.support.v4.app.FragmentTransaction;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -40,7 +39,6 @@ import java.util.regex.Pattern;
 import APIConsumer.ServiceGenerator;
 import APIConsumer.UrlClient;
 import model.Event;
-import model.Event3;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -49,11 +47,8 @@ import retrofit2.Response;
 public class CreateEventFragment extends Fragment  implements GoogleApiClient.OnConnectionFailedListener,
         GoogleApiClient.ConnectionCallbacks {
 
-    private GoogleApiClient mGoogleApiClient;
-
-    private int PLACE_PICKER_REQUEST = 1;
-    View layout;
     private static final String EMAIL_PATTERN = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
+    View layout;
     Event event;
 
     //textWrappers
@@ -79,11 +74,9 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
     String time;
     String location;
     Long   dateTimeMilliseconds;
+    View test;
     private GoogleApiClient mGoogleApiClient;
     private int PLACE_PICKER_REQUEST = 1;
-    View test;
-
-    private static final String EMAIL_PATTERN = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
     private Pattern pattern = Pattern.compile(EMAIL_PATTERN);
     private Matcher matcher;
 
@@ -318,7 +311,6 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
 
     public void showEvent(View v) {
 
-;
         Fragment fragment = new UserRegistrationFragment();
         FragmentManager fragmentManager = getChildFragmentManager();
 
