@@ -1,5 +1,7 @@
 package model;
 
+import android.widget.ImageView;
+
 /**
  * Created by Idorf on 06-05-2016.
  */
@@ -12,6 +14,7 @@ public class Event {
     String location;
     Integer catagoryID;
     Integer picturePath;
+    private transient Integer pictureTemp;
 
     public Event(Integer userID, String title, String description, Long date, String location, Integer catagoryID, Integer picturePath) {
         this.userID = userID;
@@ -77,5 +80,13 @@ public class Event {
 
     public void setPicturePath(Integer picturePath) {
         this.picturePath = picturePath;
+    }
+
+    public Integer getPictureTemp() {
+        return pictureTemp;
+    }
+
+    public void setPictureTemp(Integer picture) {
+        this.pictureTemp = picture;
     }
 }

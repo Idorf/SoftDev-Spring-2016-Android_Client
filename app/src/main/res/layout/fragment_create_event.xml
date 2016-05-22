@@ -1,3 +1,10 @@
+<FrameLayout android:id="@+id/create_event_body"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="#e3e3e3"
     android:layout_width="match_parent"
@@ -281,3 +288,4 @@
     </LinearLayout>
 
 </LinearLayout>
+</FrameLayout>

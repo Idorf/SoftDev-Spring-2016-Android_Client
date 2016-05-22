@@ -72,13 +72,13 @@ public class FragmentDrawer extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflating view layout
-        View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
-        recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
-
+      View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+       // recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
+/*
         adapter = new NavigationDrawerAdapter(getActivity(), getData());
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));*/
+     /*   recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
             @Override
             public void onClick(View view, int position) {
                 drawerListener.onDrawerItemSelected(view, position);
@@ -89,7 +89,7 @@ public class FragmentDrawer extends Fragment {
             public void onLongClick(View view, int position) {
 
             }
-        }));
+        }));*/
 
         return layout;
     }

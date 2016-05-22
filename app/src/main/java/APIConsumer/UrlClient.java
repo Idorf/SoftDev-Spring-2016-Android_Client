@@ -9,6 +9,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by Idorf on 05-05-2016.
@@ -21,6 +22,9 @@ public interface UrlClient {
    Call<Car> contributors(
            @Path("id") int id
    );
+
+    @GET("select_event")
+    Call<Event> selectEvent(@Query("eventID") int id);
 
     @POST("createcar/")
     Call<Car> createCar(@Body Car car);

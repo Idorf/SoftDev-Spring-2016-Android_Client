@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+
+import android.support.v4.app.FragmentTransaction;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,6 +40,7 @@ import java.util.regex.Pattern;
 import APIConsumer.ServiceGenerator;
 import APIConsumer.UrlClient;
 import model.Event;
+import model.Event3;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,19 +49,29 @@ import retrofit2.Response;
 public class CreateEventFragment extends Fragment  implements GoogleApiClient.OnConnectionFailedListener,
         GoogleApiClient.ConnectionCallbacks {
 
+    private GoogleApiClient mGoogleApiClient;
+
+    private int PLACE_PICKER_REQUEST = 1;
+    View layout;
     private static final String EMAIL_PATTERN = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
     Event event;
+
     //textWrappers
     TextInputLayout titleWrapper;
     TextInputLayout locationWrapper;
     TextInputLayout descriptionWrapper;
     TextInputLayout dateWrapper;
     TextInputLayout timeWrapper;
+
+
     //Buttons
     ImageView googleplaceBtn;
     ImageView timeBtn;
     ImageView calenderBtn;
     ImageView sendButton;
+
+
+
     //Text
     String title;
     String description;
@@ -67,6 +81,9 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
     Long   dateTimeMilliseconds;
     private GoogleApiClient mGoogleApiClient;
     private int PLACE_PICKER_REQUEST = 1;
+    View test;
+
+    private static final String EMAIL_PATTERN = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
     private Pattern pattern = Pattern.compile(EMAIL_PATTERN);
     private Matcher matcher;
 
@@ -96,7 +113,7 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View layout = inflater.inflate(R.layout.fragment_create_event, container, false);
+        layout = inflater.inflate(R.layout.fragment_create_event, container, false);
 
         titleWrapper = (TextInputLayout) layout.findViewById(R.id.titleWrapper);
         descriptionWrapper = (TextInputLayout) layout.findViewById(R.id.descriptionWrapper);
@@ -132,7 +149,8 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
             @Override
             public void onClick(View v) {
 
-                showDatePickerDialog(v);
+                showEvent(v);
+              //  showDatePickerDialog(v);
 
             }
         });
@@ -146,10 +164,6 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
 
             }
         });
-
-
-
-
 
         return layout;
     }
@@ -251,23 +265,27 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
             return;
         }
         try {
+
             PlacePicker.IntentBuilder intentBuilder = new PlacePicker.IntentBuilder();
 
             Intent intent = intentBuilder.build(getActivity());
-            startActivityForResult(intent, PLACE_PICKER_REQUEST);
 
+            startActivityForResult(intent, PLACE_PICKER_REQUEST);
 
         } catch (GooglePlayServicesRepairableException e) {
 
             e.printStackTrace();
+
         } catch (GooglePlayServicesNotAvailableException e) {
 
             e.printStackTrace();
+
         }
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_PICKER_REQUEST && resultCode == Activity.RESULT_OK) {
+
            //locationWrapper.getEditText().setText(PlacePicker.getPlace(data, getActivity()).getAddress().toString());
             locationWrapper.getEditText().setText(PlacePicker.getPlace(data, getActivity()).getAddress().toString());
 
@@ -298,9 +316,16 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
 
     }
 
-    public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getChildFragmentManager(), "datePicker");
+    public void showEvent(View v) {
+
+;
+        Fragment fragment = new UserRegistrationFragment();
+        FragmentManager fragmentManager = getChildFragmentManager();
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.create_event_body, fragment);
+        fragmentTransaction.commit();
+
     }
 
     public  class TimePickerFragment extends DialogFragment
