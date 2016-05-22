@@ -1,9 +1,4 @@
 package Fragments;
-import com.example.idorf.materialdesign2.R;
-
-/**
- * Created by Ravi on 29/07/15.
- */
 
 import android.content.Context;
 import android.os.Bundle;
@@ -19,32 +14,33 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.idorf.materialdesign2.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import adapter.NavigationDrawerAdapter;
 import model.NavDrawerItem;
 
+/**
+ * Created by Ravi on 29/07/15.
+ */
+
 
 public class FragmentDrawer extends Fragment {
 
     private static String TAG = FragmentDrawer.class.getSimpleName();
-
+    private static String[] titles = null;
     private RecyclerView recyclerView;
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
     private NavigationDrawerAdapter adapter;
     private View containerView;
-    private static String[] titles = null;
     private FragmentDrawerListener drawerListener;
 
     public FragmentDrawer() {
         System.out.println(TAG);
 
-    }
-
-    public void setDrawerListener(FragmentDrawerListener listener) {
-        this.drawerListener = listener;
     }
 
     public static List<NavDrawerItem> getData() {
@@ -60,6 +56,10 @@ public class FragmentDrawer extends Fragment {
         return data;
     }
 
+    public void setDrawerListener(FragmentDrawerListener listener) {
+        this.drawerListener = listener;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,12 +73,12 @@ public class FragmentDrawer extends Fragment {
                              Bundle savedInstanceState) {
         // Inflating view layout
       View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
-       // recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
-/*
+        recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
+
         adapter = new NavigationDrawerAdapter(getActivity(), getData());
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));*/
-     /*   recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
             @Override
             public void onClick(View view, int position) {
                 drawerListener.onDrawerItemSelected(view, position);
@@ -89,7 +89,7 @@ public class FragmentDrawer extends Fragment {
             public void onLongClick(View view, int position) {
 
             }
-        }));*/
+        }));
 
         return layout;
     }
@@ -128,10 +128,14 @@ public class FragmentDrawer extends Fragment {
 
     }
 
-    public static interface ClickListener {
-        public void onClick(View view, int position);
+    public interface ClickListener {
+        void onClick(View view, int position);
 
-        public void onLongClick(View view, int position);
+        void onLongClick(View view, int position);
+    }
+
+    public interface FragmentDrawerListener {
+        void onDrawerItemSelected(View view, int position);
     }
 
     static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
@@ -177,9 +181,5 @@ public class FragmentDrawer extends Fragment {
         }
 
 
-    }
-
-    public interface FragmentDrawerListener {
-        public void onDrawerItemSelected(View view, int position);
     }
 }

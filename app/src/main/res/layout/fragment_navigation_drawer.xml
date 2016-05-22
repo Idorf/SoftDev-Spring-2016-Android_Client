@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@android:color/white">
 
 
@@ -26,9 +26,9 @@
 -->
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <RelativeLayout
             android:id="@+id/nav_header_container"
@@ -50,8 +50,6 @@
 
             <TextView
                 android:id="@+id/textView3"
-                android:text="Add Account"
-                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -59,94 +57,41 @@
                 android:layout_alignParentStart="true"
                 android:paddingBottom="10dp"
                 android:paddingLeft="10dp"
-                android:textColor="#ffffff" />
+                android:text="Add Account"
+                android:textColor="#ffffff"
+                android:textStyle="bold" />
 
             <ImageView
-                tools:src="@mipmap/ic_addaccount"
+                android:id="@+id/imageView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/imageView4"
-                android:src="@mipmap/ic_addaccount"
                 android:layout_alignParentBottom="true"
-                android:layout_alignTop="@+id/textView3"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:paddingBottom="10dp" />
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/textView3"
+                android:paddingBottom="10dp"
+                android:src="@mipmap/ic_addaccount"
+                tools:src="@mipmap/ic_addaccount" />
 
         </RelativeLayout>
 
-        <LinearLayout
-            android:orientation="vertical"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/drawerList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-
-                <ImageView
-                    tools:src="@mipmap/ic_allevent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imageView2"
-                    android:src="@mipmap/ic_allevent"
-                    android:layout_alignBottom="@+id/textView2"
-                    android:layout_alignTop="@+id/textView2" />
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:text="Show Events"
-                    android:textStyle="italic"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_toEndOf="@+id/imageView2"
-                    android:layout_toRightOf="@+id/imageView2" />
-            </RelativeLayout>
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nav_header_container"
+            android:layout_marginTop="15dp" />
 
         <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imageView"
-                    tools:src="@mipmap/ic_event"
-                    android:src="@mipmap/ic_event"
-                    android:layout_alignBottom="@+id/textView"
-                    android:layout_alignTop="@+id/textView" />
-
-                <TextView
-                    android:id="@+id/textView"
-
-                    android:text="Create Event"
-                    android:textStyle="italic"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_toEndOf="@+id/imageView"
-                    android:layout_toRightOf="@+id/imageView" />
-            </RelativeLayout>
-        </LinearLayout>
-    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+            android:layout_marginBottom="15dp"
         android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp">
+            android:orientation="vertical">
         <View
             android:layout_width="wrap_content"
-            android:background="@drawable/gradient"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp"
+            android:background="@drawable/gradient" />
     </LinearLayout>
 
         <LinearLayout
@@ -156,27 +101,27 @@
 
             <TextView
             android:id="@+id/text1"
-            android:textSize="10sp"
+                android:layout_width="match_parent"
 
-            android:text="Captain America: Civil War"
-            android:textStyle="italic"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_marginLeft="5dp"
-                android:paddingLeft="10dp" />
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:text="Captain America: Civil War"
+                android:textSize="10sp"
+                android:textStyle="italic" />
         <TextView
-            android:textSize="10sp"
-
             android:id="@+id/text2"
-            android:text="Skammerens Datter"
-            android:textStyle="italic"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_marginTop="10dp"
-            android:paddingLeft="10dp" />
+            android:paddingLeft="10dp"
+            android:text="Skammerens Datter"
+            android:textSize="10sp"
+            android:textStyle="italic" />
 
 
         </LinearLayout>
