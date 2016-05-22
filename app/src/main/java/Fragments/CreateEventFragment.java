@@ -142,8 +142,8 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
             @Override
             public void onClick(View v) {
 
-                showEvent(v);
-              //  showDatePickerDialog(v);
+                //  showEvent(v);
+                showDatePickerDialog(v);
 
             }
         });
@@ -306,6 +306,14 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
 
         DialogFragment newFragment = new TimePickerFragment();
         newFragment.show(getChildFragmentManager(), "timePicker");
+
+    }
+
+
+    public void showDatePickerDialog(View v) {
+
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getChildFragmentManager(), "datePicker");
 
     }
 
