@@ -92,6 +92,6 @@
         <item>http://knowyourmeme.com/memes/y-u-no-guy</item>
         <item>http://knowyourmeme.com/memes/yao-ming-face-bitch-please</item>
     </string-array>
-    <string name="google_api_key">AIzaSyDl6ucAKgu0_Rmo4eRIAV27VWnlwysykpM</string>
-
+    <string name="google_api_key">AIzaSyD-O0PExXvbbe4wIz1PTagWZi8P8clynM4</string>
+    <string name="google_app_id">174033276658</string>
 </resources>

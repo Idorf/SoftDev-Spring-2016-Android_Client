@@ -18,7 +18,6 @@ import java.util.Date;
 import java.util.List;
 
 import model.Event;
-import model.Event3;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
 
@@ -43,10 +42,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             eventTime = (TextView)itemView.findViewById(R.id.EventTime);
             eventImage = (ImageView) itemView.findViewById(R.id.randomPicture);
             eventLocation = (TextView)itemView.findViewById(R.id.EventLocation);
-
-
-
-
 
         }
     }
@@ -84,7 +79,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         String timeText = time.format(date);
         eventViewHolder.eventDate.setText(dateText +" \u2022 "+ timeText);
        // eventViewHolder.eventTime.setText(timeText);
-      //  eventViewHolder.eventLocation.setText(event3s.get(i).getLocation());
+        eventViewHolder.eventLocation.setText(event3s.get(i).getLocation());
        eventViewHolder.eventImage.setBackgroundResource(event3s.get(i).getPictureTemp());
 
 

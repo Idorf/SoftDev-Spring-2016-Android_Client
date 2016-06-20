@@ -141,6 +141,49 @@
                 <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        tools:text="Rebæk"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/EventLocation"
+
+                        android:gravity="right"
+                        android:paddingLeft="5dp"
+                        android:paddingBottom="2dp"
+                        android:textSize="12dp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:id="@+id/relativeLayout">
+
+                        <View
+                            android:id="@+id/eventLine2"
+                            android:layout_width="wrap_content"
+                            android:background="@drawable/gradient"
+                            android:layout_height="1dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <ImageView

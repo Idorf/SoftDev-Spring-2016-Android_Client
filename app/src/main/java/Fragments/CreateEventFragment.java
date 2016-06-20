@@ -74,7 +74,8 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
     String time;
     String location;
     Long   dateTimeMilliseconds;
-    View test;
+
+
     private GoogleApiClient mGoogleApiClient;
     private int PLACE_PICKER_REQUEST = 1;
     private Pattern pattern = Pattern.compile(EMAIL_PATTERN);
@@ -99,7 +100,7 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
-
+        System.out.print(mGoogleApiClient.toString());
     }
 
     @Override
@@ -142,7 +143,6 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
             @Override
             public void onClick(View v) {
 
-                //  showEvent(v);
                 showDatePickerDialog(v);
 
             }
@@ -152,8 +152,7 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
             @Override
             public void onClick(View v) {
 
-
-                doLogin();
+             doLogin();
 
             }
         });
@@ -176,7 +175,6 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
 
         String timeFormat = date + " " + time;
 
-      //  String timeFormat = "2009-07-20 05-33";
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
         try {
@@ -203,10 +201,9 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
                 if (response.isSuccessful()) {
                     System.out.println("isSuccessful");
 
-                    //   for (Car contributor : response.body()) {
                   System.out.println("Username: " + response.body().getTitle() + "Email: -" + response.body().getDescription() + "Email: -" + response.body().getLocation());
-                    //}
                 } else {
+
                     // error response, no access to resource?
                 }
 
@@ -239,12 +236,17 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
         super.onStart();
         if (mGoogleApiClient != null)
             mGoogleApiClient.connect();
+        System.out.print("----------------------------------------------------------------------google start");
+
+
     }
 
     @Override
     public void onStop() {
         if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
+            System.out.print("google end");
+
         }
         super.onStop();
     }
@@ -263,6 +265,7 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
 
             Intent intent = intentBuilder.build(getActivity());
 
+
             startActivityForResult(intent, PLACE_PICKER_REQUEST);
 
         } catch (GooglePlayServicesRepairableException e) {
@@ -279,10 +282,7 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_PICKER_REQUEST && resultCode == Activity.RESULT_OK) {
 
-           //locationWrapper.getEditText().setText(PlacePicker.getPlace(data, getActivity()).getAddress().toString());
             locationWrapper.getEditText().setText(PlacePicker.getPlace(data, getActivity()).getAddress().toString());
-
-            System.out.println("------------------------------------" + PlacePicker.getPlace(data, getActivity()).getAddress().toString());
 
         }
     }
@@ -374,12 +374,8 @@ public class CreateEventFragment extends Fragment  implements GoogleApiClient.On
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
 
-
             dateWrapper.getEditText().setText(day+"/" + month +"/"+year);
 
-            System.out.println("---------------------------------------" + year +month + day);
-
-            // Do something with the date chosen by the user
         }
     }
 

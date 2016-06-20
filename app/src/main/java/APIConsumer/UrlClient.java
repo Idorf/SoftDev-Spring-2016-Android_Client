@@ -2,7 +2,6 @@ package APIConsumer;
 
 
 import model.Event;
-import model.Event3;
 import model.User;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -16,18 +15,9 @@ import retrofit2.http.Query;
  */
 
 public interface UrlClient {
-  //  @GET("/repos/{owner}/{repo}/contributors")
-
-   @GET("getcar/{id}/")
-   Call<Car> contributors(
-           @Path("id") int id
-   );
 
     @GET("select_event")
     Call<Event> selectEvent(@Query("eventID") int id);
-
-    @POST("createcar/")
-    Call<Car> createCar(@Body Car car);
 
 
     @POST("create_User/")

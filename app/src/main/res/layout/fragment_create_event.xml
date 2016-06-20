@@ -58,7 +58,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textEmailAddress"
-                        android:hint="Title of the event3"/>
+                        android:hint="Title of the event"/>
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -232,7 +232,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:enabled="false"
-                        android:hint="Search for location"/>
+                        />
 
                 </android.support.design.widget.TextInputLayout>
 

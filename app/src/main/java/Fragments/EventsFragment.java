@@ -1,7 +1,6 @@
 package Fragments;
 
 import android.app.Activity;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.example.idorf.materialdesign2.R;
 
@@ -20,9 +18,7 @@ import java.util.List;
 import APIConsumer.ServiceGenerator;
 import APIConsumer.UrlClient;
 import adapter.EventAdapter;
-import adapter.EventAdapter2;
 import model.Event;
-import model.Event3;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,7 +30,6 @@ public class EventsFragment extends Fragment {
     UrlClient client = ServiceGenerator.createService(UrlClient.class);
     public ArrayList<Event> eventList = new ArrayList<>();
 
-    private List<Event3> event3s;
     private RecyclerView rv;
 
     public EventsFragment() {
@@ -62,18 +57,11 @@ public class EventsFragment extends Fragment {
 
         LinearLayoutManager llm = new LinearLayoutManager(activity);
         rv.setLayoutManager(llm);
-        event3s = new ArrayList<>();
 
         for(int i=1; i<=100; i++){
 
             run(i);
         }
-
-
-
-
-
-        // Inflate the layout for this fragment
         return layout;
     }
 
@@ -87,17 +75,7 @@ public class EventsFragment extends Fragment {
         super.onDetach();
     }
 
-    private void initializeData(int i){
 
-       // event3s.add(eventList.get(i));
-       // event3s.add(new Event3("KoncertHuset", "3 km", "Beethoven & Brahms", R.drawable.koncerthuset));
-
-    }
-
-/*    private void initializeAdapter(){
-        RVAdapter adapter = new RVAdapter(persons);
-        rv.setAdapter(adapter);
-    }*/
     private void initializeAdapter(){
 
         EventAdapter adapter = new EventAdapter(eventList);
@@ -122,14 +100,11 @@ public class EventsFragment extends Fragment {
                     response.body().setPictureTemp(images[imageId]);
                     eventList.add(response.body());
 
-                  //  initializeData(i);
                     initializeAdapter();
 
-                    //   for (Car contributor : response.body()) {
                     System.out.println("Username: " + response.body().getTitle() + "Email: -" + response.body().getDescription() + "Email: -" + response.body().getLocation());
-                    //}
+
                 } else {
-                    // error response, no access to resource?
                 }
 
             }
@@ -142,18 +117,3 @@ public class EventsFragment extends Fragment {
 
     }
 }
-/*
-
-
-    private void initializeData(){
-
-        event3s = new ArrayList<>();
-        event3s.add(new Event3("KoncertHuset", "3 km", "Beethoven & Brahms", R.drawable.koncerthuset));
-        event3s.add(new Event3("Østre gasværk", "10 km", "Skammerens Datter", R.drawable.oestre_gasvaerk));
-        event3s.add(new Event3("Palads", "5 km", "CAPTAIN AMERICA: CIVIL WAR", R.drawable.palads));
-
-
-
-
-
-    }*/

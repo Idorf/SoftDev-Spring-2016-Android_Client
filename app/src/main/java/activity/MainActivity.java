@@ -14,7 +14,6 @@ import android.view.View;
 
 import com.example.idorf.materialdesign2.R;
 
-import APIConsumer.CallREST;
 import Fragments.CreateEventFragment;
 import Fragments.EventsFragment;
 import Fragments.FragmentDrawer;
@@ -33,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         Log.d("test", "11111" + getApplicationContext().getApplicationInfo());
         Fragment fragment = null;
         String title = getString(R.string.app_name);
-        new CallREST();
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(mToolbar);
@@ -43,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
         drawerFragment.setDrawerListener(this);
-        //  mNames = resources.getStringArray(R.array.names);
         fragment = new EventsFragment();
 
         if (fragment != null)
